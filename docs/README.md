@@ -52,3 +52,125 @@ Aktif pencere koyu mavi, mod + a kombinasnuna basıldığı anda hangi çalışm
 
 
 # i3 Yapılandırma
+Gerçek eğlencenin başladığı yer burası ;-). Çoğu şey ideal çalışma ortamınıza çok bağlıdır, bu yüzden ideal çalışma ortamınızı kendiniz yaratmalısınız.
+
+i3 yapılandırma dosyası herhangi bir programlama dilini kullanmaz.  Basit bir yapı üzerine kurgulanmıştır. Konfigürasyon yapısını anladığınız takdirde, github üzerinde paylaşılan konfig dosyalarınıda rahatça okuyabileceksiniz. Bu okuma sayesinde başka kişilerin konfig dosyalarında faydalanabileceksiniz : )
+
+Örneğin, pencereleri dilediğiniz yere konumlandırabilecek, istediğiniz çalışma alanına istediğiniz uygulamayla birlikte açılmasını sağlayabilecek, uygulamaların otomatik olarak başlatabilecek, i3'ün renklerini değiştirebilicek ve daha bir çok şeyi ayar dosyanız üzerinden gerçekleştirebileceksiniz.
+
+i3 ayar dosyası bazı dağıtımlarda **/etc/i3/config** içerisinde yer alabilir.  Bu dosyayı dilerseniz **~/.i3/config** veya **~/.config/i3/config** içerisine taşıyabilirsiniz.  Standart kullanım ~/.config/i3/config şeklindedir. Bu dosyayı VIM,Sublime,Nano veya herhangi bir editorle düzenleyebilirsiniz.
+
+İ3wm  başlatılığında  config dosyası yoksa otomatik olarak **i3-config-wizard** komutu devreye girer. Bu komutla birlikte size Alt ( Mod1 ) veya Windows ( Mod4 ) MOD tuşlarından hangisini kullanmak isteyeceğinizi sorar, dilediğinizi seçebilirsiniz.
+Ayrıca, oluşturulan config dosyası mevcut klavye düzeninizin temel sembollerini kullanır. Yanlışlıkla kapatırsanız veya tüm i3 ayarlarınızı sıfırlamak isterseniz yine bu komutu kullanabilirsiniz.  **i3-config-wizard**  
+
+ - Sıfırlama yaparken önceki konfig dosyasınızın yedeğini almayı
+   unutmayın.
+
+İ3 4.0'dan sonra daha basit,anlaşılır anahtar kelime yapısı kullanmaya başlamıştır. Ayar dosyasının okunmaması gibi bir durumla karşılaşanı görmedim ancak, ayar dosyası okunamıyor gibi bir ibare ile karşılaşırsanız. Ayar dosyanızın en başına şu satırı ekleyin.
+
+    # i3 config file (v4)
+### Yorum Satırları
+
+Kurulumunuzu yaptıktan sonra hangi tuşun, hangi komutun ne işe yaradığını unutuyorsanız, ayar dosyanız içerisinde **belgelendirme** yapabilirsiniz. Yorumlar #(diez) işareti ile başlar ve yalnızca satırın başında kullanılabilir:
+
+**Örnekler** :
+
+    # Bu bir yorumdur
+
+### Yazı Tipleri (Font)
+
+i3, pencere başlıklarını,sistem yazı tiplerini FreeType yazı tiplerini (Pango aracılığıyla) destekler.
+
+xfontsel [(1)](https://www.x.org/archive/X11R7.5/doc/man/man1/xfontsel.1.html) kullanabilirsiniz . Özel karakterleri görmek için (Unicode), ISO-10646 kodlamasını destekleyen bir font kullanmanız gerekir.
+
+İ3wm ayarladığınız fontu açamaz ise varsayılan yazı tipine geri döner. Buradan  anlaşılabileceği gibi ; 
+
+ - Sisteme ayarlanan font sisteminizde yüklü olmayabilir.
+ - Fontunuz sistem içerisinde kullanılmaya uygun değildir.[ Çok karşılaşılan bir durum değildir.]
+ 
+**Sözdizimi** :
+
+    font <font açıklaması> 
+    font pango: <font adı> [<stil seçenekleri>] <boyut>
+
+**Örnek Kullanım**:
+
+    font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+    font pango:DejaVu Sans Mono 10
+    font pango:DejaVu Sans Mono, Terminus Bold Semi-Condensed 11
+    font pango:Terminus 11px
+
+### Klavye Düzeni
+
+Klavyeyle bastınığınız tuşun herhangi bir pencereyi yada uygulamayı çalıştırmasını sağlar. (Örnek için aşağıya bakınız).  İ3wm'ye atadığınız tuşu uniq'tir, yani bir uygulama yada pencere için aynı tuş kombinasyonunu kullanamazsınız. Kullandığınız takdirde hata verecektir. Sistemi yeniden başlatmadan, yada 
+
+    bindsym $mod+Shift+r restart
+    bindsym $mod+Shift+w reload
+   komutlarını kullanmadan alınan hatayı göremeyiz. Zira her yaptıgımız değişiklikten sonra, yapılan değişikliği görmek için bu kombinasyonu kullanırız. Bu şekilde ayar dosyamızda hata var mı yok mu görebiliriz.
+
+Klavye düzeninizi görebilmek için **xmodmap -pke** komutunu kullanabilirsiniz. Aynı şekilde klavye üzerinde bastığınız tuşun hangi anlama geldiğini görebilmek için  **xev** komutunu kullanabilirsiniz.
+    
+-   Anahtar kodlarının bir sembol atanmasına gerek yoktur (bazı dizüstü bilgisayarlarda özel satıcı kısayol tuşları için kullanışlıdır) ve farklı bir klavye düzenine ( xmodmap kullanırken ) geçerken anlamlarını değiştirmezler .
+  
+  Tecrübeyle sabit ;  Bazı konfig dosyalarını okurken bazı kombinasyonların hangi anlama geldiğini anlamayabilirsiniz.  Belki de o konfig arm,laptop veya farklı bir klavye düzeni kullanılan cihazda yapılmıştır. xev komutu burada çok işlevseldir. Örneğin  $mod+minus  şeklinde yazılımış bir ifadenin klavye üzerinde hangi kombinasyona denk geldiğini anlayamıyorsanız. 
+
+    xev | grep -A2 --line-buffered '^KeyRelease' | sed -n "/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p"
+
+kodu terminalde çalıştırın klavyeniz üzerinde çeşitli denemeler yapın, sizde olmayan tuşları, yada bir uygulamayı başlatmak için kendinize daha rahat tuş kombinasyonu oluşturabilirsiniz. 
+
+![örnek çıktı](https://i.ibb.co/zHRDt1m/pic-selected-190804-0605-13.png)
+
+resimde görüldüğü üzere hem basılan tuşların karşılığını hemde uniqid'sini vermektedir.
+
+**Kullanım Düzeni Syntax**:
+
+    bindsym [--release] [<Group>+][<Modifiers>+]<keysym> command
+    bindcode [--release] [<Group>+][<Modifiers>+]<keycode> command
+
+**Örnek Kullanım**:
+
+    # Tam Ekran
+    bindsym $mod+f fullscreen toggle
+    
+    # i3wm Yeniden Başlatma
+    bindsym $mod+Shift+r restart
+    
+    # Laptopta spesifik bir tuş ataması
+    bindcode 214 exec --no-startup-id /home/friday13/toggle_beamer.sh
+    
+    # Kontrol V tuşunu  $mod +x kombinasyonuyla simule etmek
+    bindsym --release $mod+x exec --no-startup-id xdotool key --clearmodifiers ctrl+v
+    
+    # Ekran Resmi Almak $mod+x (belirli bir alanı seçmek)
+    bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screenshot.png
+
+bindsym ve bindcode kısmı dikkatinizi çekmiştir. İşte yukarıda verdiğim bilgiler neticesinde eğer ki bastığımız tuşun numarasını bilmiyorsak yukarıda ki işlemleri uygulayarak öğrenebilirsiniz. Aynı şekilde bindsym kullanırken de kelime karşılığını bilmiyorsak yine aynı yöntemle öğrenebiliyoruz. 
+
+--relase yazılmasını sebebi bazı klavyeler ve bazı uygulamalar doğru kombinasyonu yazıp çalıştırdığınız halde çalışmazlar. **Xdotool** veya **import** uygulamarda dahil etmek zorundayız.
+
+### Fare ile Kombinasyon
+
+Ayar dosyamıza mouse ile  kombinlemek istiyorsak düzenimiz şu şekilde olmalıdır.
+
+    bindsym [--release] [--border] [--whole-window] [--exclude-titlebar] [<Modifiers>+]button<n> command
+
+**Örnek Kullanım**:
+
+    # Farenin orta tuşuyla açık bir uygulamayı kapatabilirsiniz.
+    bindsym --release button2 kill
+    
+    # Farenin orta tuşu ve mod tuşuyla birlikte açık uygulamayı sonlandırır
+    bindsym --whole-window $mod+button2 kill
+    
+    # Farenin sağ tuşuyla mevcut düzen üzerinde geçiş yapabilirsiniz.
+    bindsym button3 floating toggle
+    bindsym $mod+button3 floating toggle
+    
+    # Fare tuşlarıyla sağa sola geçebilirsiniz.
+    bindsym button9 move left
+    bindsym button8 move right
+
+
+Burada dikkat edilmesi gerek button numaraları , bazı fareler üzerinde tuşlar vardır, bu tuşları kullanabilmek için klavye düzenindeki verdiğim bilgileri fare içinde kullabilirsiniz.
+
+Devamı çok yakında. Bekleyin Bebekleyin dı dıdı tıs
