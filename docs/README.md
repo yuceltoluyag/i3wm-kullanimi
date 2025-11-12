@@ -69,7 +69,7 @@ Ayrıca, oluşturulan config dosyası mevcut klavye düzeninizin temel semboller
 İ3 4.0'dan sonra daha basit,anlaşılır anahtar kelime yapısı kullanmaya başlamıştır. Ayar dosyasının okunmaması gibi bir durumla karşılaşanı görmedim ancak, ayar dosyası okunamıyor gibi bir ibare ile karşılaşırsanız. Ayar dosyanızın en başına şu satırı ekleyin.
 
     # i3 config file (v4)
-### Yorum Satırları
+## Yorum Satırları
 
 Kurulumunuzu yaptıktan sonra hangi tuşun, hangi komutun ne işe yaradığını unutuyorsanız, ayar dosyanız içerisinde **belgelendirme** yapabilirsiniz. Yorumlar #(diez) işareti ile başlar ve yalnızca satırın başında kullanılabilir:
 
@@ -77,7 +77,7 @@ Kurulumunuzu yaptıktan sonra hangi tuşun, hangi komutun ne işe yaradığını
 
     # Bu bir yorumdur
 
-### Yazı Tipleri (Font)
+## Yazı Tipleri (Font)
 
 i3, pencere başlıklarını,sistem yazı tiplerini FreeType yazı tiplerini (Pango aracılığıyla) destekler.
 
@@ -100,7 +100,7 @@ xfontsel [(1)](https://www.x.org/archive/X11R7.5/doc/man/man1/xfontsel.1.html) k
     font pango:DejaVu Sans Mono, Terminus Bold Semi-Condensed 11
     font pango:Terminus 11px
 
-### Klavye Düzeni
+## Klavye Düzeni
 
 Klavyeyle bastınığınız tuşun herhangi bir pencereyi yada uygulamayı çalıştırmasını sağlar. (Örnek için aşağıya bakınız).  İ3wm'ye atadığınız tuşu uniq'tir, yani bir uygulama yada pencere için aynı tuş kombinasyonunu kullanamazsınız. Kullandığınız takdirde hata verecektir. Sistemi yeniden başlatmadan, yada 
 
@@ -148,7 +148,7 @@ bindsym ve bindcode kısmı dikkatinizi çekmiştir. İşte yukarıda verdiğim 
 
 --relase yazılmasını sebebi bazı klavyeler ve bazı uygulamalar doğru kombinasyonu yazıp çalıştırdığınız halde çalışmazlar. **Xdotool** veya **import** uygulamarda dahil etmek zorundayız.
 
-### Fare ile Kombinasyon
+## Fare ile Kombinasyon
 
 Ayar dosyamıza mouse ile  kombinlemek istiyorsak düzenimiz şu şekilde olmalıdır.
 
